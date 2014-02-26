@@ -18,7 +18,6 @@ class BaseFramework(object):
     def __init__(self, import_name, **kwargs):
         self.import_name = import_name
         self.root_path = get_root_path(import_name)
-        self.sprites = {}
 
         config = {}
         config.setdefault('CAPTION', 'Dame')
@@ -53,8 +52,10 @@ class BaseFramework(object):
             listeners = kwargs.pop('listeners')
         self.listener = Listener(listeners)
 
-    def init(self):
+        self.sprites = []
         pygame.init()
+
+    def init(self):
         pygame.display.set_caption(self.config.get('CAPTION'))
         self.screen = pygame.display.set_mode(
             (self.config['SCREEN_WIDTH'], self.config['SCREEN_HEIGHT']),
@@ -64,16 +65,16 @@ class BaseFramework(object):
         self.screen.fill(colors.WHITE)
         pygame.display.update()
 
-    def new_sprite(self, name, filepath):
+    def create_sprite(self, filepath):
         sprite = Sprite(
             os.path.join(
                 self.root_path,
                 self.config['SPRITE_FOLDER'],
-                filepath))
-        self.sprites[name] = sprite
+                filepath), fw=self)
+        return sprite
 
     def put_sprite(self, name, position, crop_size=None, crop_position=None):
-        if name in self.sprites.keys():
+        if name in self.sprites:
             if crop_size and crop_position:
                 img = self.sprites[name].crop(crop_size, crop_position)
             else:
