@@ -73,16 +73,6 @@ class BaseFramework(object):
                 filepath), fw=self)
         return sprite
 
-    def put_sprite(self, name, position, crop_size=None, crop_position=None):
-        if name in self.sprites:
-            if crop_size and crop_position:
-                img = self.sprites[name].crop(crop_size, crop_position)
-            else:
-                img = self.sprites[name].get()
-            self.screen.blit(img, position)
-        else:
-            print '%s is not created!' % name
-
     def add_listener(self, type, action):
         if callable(action):
             self.listener.add(type, action)
