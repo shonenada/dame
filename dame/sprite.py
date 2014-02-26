@@ -11,14 +11,14 @@ class Sprite(object):
 
     def __init__(self, filename=None):
         self.filename = filename
-
-    def open(self):
-        assert self.filename is not None
-        self.src = Image.open(self.filename)
+        self.src = Image.open(self.filename).convert('RGBA')
         self.img = pygame.image.frombuffer(
             self.src.tostring(),
             self.src.size,
             self.src.mode).convert()
+
+    def get(self):
+        assert self.filename is not None
         return self.img
 
     def crop(self, size, position):
@@ -26,5 +26,5 @@ class Sprite(object):
         img = pygame.image.frombuffer(
             cropped_img.tostring(),
             cropped_img.size,
-            croppe_img.mode).convert()
+            cropped_img.mode).convert()
         return img

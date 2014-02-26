@@ -9,6 +9,9 @@ from PIL import Image
 import pygame
 
 
+string_types = (str, unicode)
+
+
 def get_root_path(import_name):
     mod = sys.modules.get(import_name)
 
@@ -30,6 +33,7 @@ def get_root_path(import_name):
 
 
 def import_string(import_name):
+
     assert isinstance(import_name, string_types)
 
     import_name = str(import_name)

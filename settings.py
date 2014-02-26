@@ -1,0 +1,18 @@
+from pygame.locals import *
+
+
+SPRITE_FOLDER = 'sprites/sys/'
+
+# Settings
+CAPTION = 'Dennis Walking'
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+MODE = HWSURFACE
+COLOR_DEPTH = 32
+
+# Sprite
+SPRITE_WIDTH = 80
+SPRITE_HEIGHT = 80
+SPRITE_CROP_WIDTH = 79
+SPRITE_CROP_HEIGHT = 79
+

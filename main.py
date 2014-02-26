@@ -5,12 +5,12 @@ from pygame.locals import *
 from dame.app import Dame
 
 
-def print_mouse(event):
-    print event.pos
+demo = Dame(__name__)
+demo.config.from_object('settings')
+demo.init()
+demo.clr_screen()
+demo.new_sprite('dennis', 'dennis_0.bmp')
+demo.put_sprite('dennis', (0, 0), (80, 80), (0, 0))
+pygame.display.update()
 
-
-dame = Dame(__name__)
-dame.init()
-dame.add_listener(MOUSEMOTION, print_mouse)
-
-dame.loop()
+demo.loop()

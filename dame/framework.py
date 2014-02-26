@@ -9,7 +9,7 @@ import pygame
 from pygame.locals import *
 
 from dame.sprite import Sprite
-from dame.utils import import_string, get_root_path
+from dame.utils import import_string, get_root_path, string_types
 from dame import colors
 
 
@@ -61,11 +61,8 @@ class BaseFramework(object):
             self.config['MODE'], self.config['DEPTH'])
 
     def clr_screen(self):
-        self.screen.fill(colors.BLACK)
-
-    def fresh(self):
-        self.clr_screen()
-        self.screen.update()
+        self.screen.fill(colors.WHITE)
+        pygame.display.update()
 
     def new_sprite(self, name, filepath):
         sprite = Sprite(
@@ -74,6 +71,16 @@ class BaseFramework(object):
                 self.config['SPRITE_FOLDER'],
                 filepath))
         self.sprites[name] = sprite
+
+    def put_sprite(self, name, position, crop_size=None, crop_position=None):
+        if name in self.sprites.keys():
+            if crop_size and crop_position:
+                img = self.sprites[name].crop(crop_size, crop_position)
+            else:
+                img = self.sprites[name].get()
+            self.screen.blit(img, position)
+        else:
+            print '%s is not created!' % name
 
     def add_listener(self, type, action):
         if callable(action):
